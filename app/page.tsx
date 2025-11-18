@@ -1,65 +1,133 @@
-import Image from "next/image";
+"use client"
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView } from 'framer-motion';
+import {
+  Menu,
+  X,
+  Hammer,
+  Palette,
+  CheckCircle,
+  Phone,
+  Mail,
+  MapPin,
+  ChevronDown,
+  Star,
+  Facebook,
+  Instagram,
+  Twitter,
+  Users,
+  Target,
+  BookOpen,
+} from 'lucide-react';
 
-export default function Home() {
+
+import {Header} from './components/Header';
+import { About } from './components/About';
+import {Services} from './components/Service'; // Your file is named Service.tsx
+import {CTA} from './components/Cta';
+import {Gallery} from './components/Gallery';
+import {Testimonials} from './components/Testimonial';
+import {FAQ} from './components/Faq';
+import Experience from './components/Experience';
+import { Hero } from './components/Hero';
+import {Footer} from './components/Footer';
+
+
+
+// --- Type Definitions ---
+interface Service {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+interface GalleryImage {
+  src: string;
+  alt: string;
+  category: string;
+}
+interface Testimonial {
+  quote: string;
+  name: string;
+  project: string;
+}
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+// --- Reusable Components ---
+
+// Button Component
+type ButtonProps = {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'outline';
+  className?: string;
+  onClick?: () => void;
+  href?: string;
+};
+
+const Button: React.FC<ButtonProps> = ({
+  children,
+  variant = 'primary',
+  className = '',
+  href,
+  ...props
+}) => {
+  const baseStyle =
+    'px-6 py-3 rounded-lg font-semibold transition-all duration-300 ease-in-out transform text-center inline-block';
+  const styles = {
+    primary:
+      'bg-amber-600 text-white hover:bg-amber-700 hover:shadow-lg focus:ring-4 focus:ring-amber-300',
+    secondary:
+      'bg-gray-800 text-white hover:bg-gray-900 hover:shadow-lg focus:ring-4 focus:ring-gray-300',
+    outline:
+      'bg-transparent border-2 border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white',
+  };
+  const fullClassName = `${baseStyle} ${styles[variant]} ${className}`;
+
+  if (href) {
+    return (
+      <a href={href} className={fullClassName} {...props}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <button className={fullClassName} {...props}>
+      {children}
+    </button>
+  );
+};
+
+// Header Component
+
+
+// --- Main App Component (Homepage) ---
+export default function Home() {
+  // Effect to handle smooth scrolling on initial load if a hash is present
+  useEffect(() => {
+    if (window.location.hash) {
+      const element = document.querySelector(window.location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+
+  return (
+    <div className="flex min-h-screen flex-col bg-white font-sans">
+      {/* <Header /> */}
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Experience />
+        <CTA />
+        <Gallery />
+        <Testimonials />
+        <FAQ />
       </main>
+      {/* <Footer /> */}
     </div>
   );
 }
