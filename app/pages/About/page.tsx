@@ -43,19 +43,19 @@ const AboutPageBody: React.FC = () => {
 
   const teamMembers = [
     {
-      img: 'https://placehold.co/400x400/808080/FFFFFF?text=John+Doe',
+      img: '/bg (2).jpg',
       name: 'John Doe',
       title: 'Founder & Master Carpenter',
       bio: 'A second-generation woodworker with over 25 years of experience, John leads every project with a passion for precision and artistry.',
     },
     {
-      img: 'https://placehold.co/400x400/A0A0A0/FFFFFF?text=Jane+Smith',
+      img: '/bg (2).jpg',
       name: 'Jane Smith',
       title: 'Designer & Project Manager',
       bio: 'Jane bridges the gap between your ideas and our workshop, ensuring a seamless process from initial sketch to final installation.',
     },
     {
-      img: 'https://placehold.co/400x400/808080/FFFFFF?text=Mark+Johnson',
+      img: '/bg (2).jpg',
       name: 'Mark Johnson',
       title: 'Finishing Specialist',
       bio: 'Mark is our in-house artist, responsible for the custom stains and flawless, hand-rubbed finishes that make every piece unique.',
@@ -98,7 +98,7 @@ const AboutPageBody: React.FC = () => {
             </div>
             <div className="transform transition-transform duration-500 hover:scale-105">
               <img
-                src="https://placehold.co/600x500/A0A0A0/FFFFFF?text=Our+Workshop"
+                src="/bg (5).jpg"
                 alt="Inside the carpentry workshop"
                 className="w-full rounded-lg object-cover shadow-2xl"
               />
